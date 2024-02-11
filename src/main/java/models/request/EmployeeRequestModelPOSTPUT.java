@@ -1,4 +1,4 @@
-package models.response;
+package models.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,14 +9,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeResponseModelDataPOST {
 
+public class EmployeeRequestModelPOSTPUT {
 
     String name;
     String salary;
     String age;
-    String id;
 
 
 }
-
