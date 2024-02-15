@@ -1,4 +1,4 @@
-package models.response;
+package models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeResponseModelGETById {
-
-
-    String status;
-    EmployeeResponseModelGETData data;
-    String message;
+public class JsonplaceholderRequestResponseModelPUT {
+     int id;
+     String title;
+     String body;
+     int userId;
 
 }

@@ -10,12 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeResponseModelDELETE {
-   /* {
-        "status": "success",
-            "data": "20",
-            "message": "Successfully! Record has been deleted"
-    }
-    */
+
 
     String status;
     String data;

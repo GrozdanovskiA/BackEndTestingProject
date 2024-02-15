@@ -5,15 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeResponseModelGETById {
-
+public class EmployeeResponseModelGETALL {
 
     String status;
-    EmployeeResponseModelGETData data;
+    List<EmployeeResponseModelGETData> data;
     String message;
 
 }
