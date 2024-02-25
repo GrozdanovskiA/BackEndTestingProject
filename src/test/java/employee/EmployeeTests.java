@@ -4,51 +4,20 @@ import Client.EmployeeClient;
 import data.EmployeeDataFactory;
 import io.restassured.response.Response;
 import models.request.EmployeeRequestModelPOSTPUT;
-import models.response.EmployeeResponseModeGETALL;
+import models.response.EmployeeResponseModelGETALL;
 import models.response.EmployeeResponseModelDELETE;
 import models.response.EmployeeResponseModelGETById;
 import models.response.EmployeeResponseModelPOSTPUT;
 import org.junit.Test;
 
 import static mother.EmployeeMother.createBodyForEmployeesPOSTPUT;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class EmployeeTests {
 
     @Test
-    public void getAllEmployeesTest(){
-        Response getResponse = new EmployeeClient()
-                .getAllEmployees();
-
-        EmployeeResponseModeGETALL employeesResponse = getResponse.body().as(EmployeeResponseModeGETALL.class);
-
-        assertEquals(200, getResponse.statusCode());
-        assertEquals("success", employeesResponse.getStatus());
-        assertFalse(employeesResponse.getData().isEmpty());
-        assertEquals("Successfully! All records has been fetched.", employeesResponse.getMessage());
-
-    }
-    @Test
-    public void getEmployeeByIdTest (){
-        Response getResponse = new EmployeeClient()
-                .getOneEmployee("3");
-
-        EmployeeResponseModelGETById employeeResponse = getResponse.body().as(EmployeeResponseModelGETById.class);
-
-        assertEquals(200, getResponse.statusCode());
-        assertEquals("success", employeeResponse.getStatus());
-        assertEquals("Ashton Cox",employeeResponse.getData().getEmployee_name());
-        assertEquals(86000, employeeResponse.getData().getEmployee_salary());
-        assertEquals(66, employeeResponse.getData().getEmployee_age());
-        assertEquals("Successfully! Record has been fetched.",employeeResponse.getMessage());
-
-    }
-
-
-    @Test
-    public void postEmployeeRequestDefaultValuesTest(){
-
+    public void postEmployeeRequestDefaultValues(){
         //kreirame request body i zadavame vrednosti na atributite
         EmployeeRequestModelPOSTPUT requestBody = new EmployeeDataFactory(createBodyForEmployeesPOSTPUT())
                 .createRequest();
@@ -57,7 +26,7 @@ public class EmployeeTests {
         Response postResponse = new EmployeeClient()
                 .postEmployee(requestBody);
         //go zacuvuvame request body-to kako klasen tip (Response --> EmployeeResponse)
-        // za da mozime da gi pristapime atributite na modelite (SERIJALIZACIJA)
+        // za da mozime da gi pristapime atributite na modelite
         EmployeeResponseModelPOSTPUT employeesResponse = postResponse.body().as(EmployeeResponseModelPOSTPUT.class);
         //pravime sporedbi na vrednostite
         assertEquals(200, postResponse.statusCode());
@@ -69,7 +38,7 @@ public class EmployeeTests {
    }
 
     @Test
-    public void postEmployeeRequestTest(){
+    public void postEmployeeRequest(){
 
         EmployeeRequestModelPOSTPUT requestBody = new EmployeeDataFactory(createBodyForEmployeesPOSTPUT())
                 .setName("Petko")
@@ -92,12 +61,40 @@ public class EmployeeTests {
         assertEquals("Successfully! Record has been added.", employeesResponse.getMessage());
     }
     @Test
+    public void getAllEmployeesTest(){
+        Response getResponse = new EmployeeClient()
+                .getAllEmployees();
+
+        EmployeeResponseModelGETALL employeesResponse = getResponse.body().as(EmployeeResponseModelGETALL.class);
+
+        assertEquals(200, getResponse.statusCode());
+        assertEquals("success", employeesResponse.getStatus());
+        assertFalse(employeesResponse.getData().isEmpty());
+        assertEquals("Successfully! All records has been fetched.", employeesResponse.getMessage());
+
+    }
+    @Test
+    public void getEmployeeByIdTest (){
+        Response getResponse = new EmployeeClient()
+                .getOneEmployee("3");
+
+        EmployeeResponseModelGETById employeeResponse = getResponse.body().as(EmployeeResponseModelGETById.class);
+
+        assertEquals(200, getResponse.statusCode());
+        assertEquals("success", employeeResponse.getStatus());
+        assertEquals("Ashton Cox",employeeResponse.getData().getEmployee_name());
+        assertEquals(86000, employeeResponse.getData().getEmployee_salary());
+        assertEquals(66, employeeResponse.getData().getEmployee_age());
+        assertEquals("Successfully! Record has been fetched.",employeeResponse.getMessage());
+
+    }
+    @Test
     public void putUpdateEmployeeTest(){
         EmployeeRequestModelPOSTPUT requestBody = new EmployeeDataFactory(createBodyForEmployeesPOSTPUT())
-            .setName("Zhivko Petkov")
-            .setAge("40")
-            .setSalary("10 000")
-            .createRequest();
+                .setName("Zhivko Petkov")
+                .setAge("40")
+                .setSalary("10 000")
+                .createRequest();
 
         Response putUpdateResponse = new EmployeeClient()
                 .putUpdateEmployee(requestBody,"10");
@@ -126,7 +123,9 @@ public class EmployeeTests {
         assertEquals(id , deleteEmployeeResponse.getData());
         assertEquals("Successfully! Record has been deleted", deleteEmployeeResponse.getMessage());
 
-        }
+    }
+
+
 }
 
 
