@@ -9,14 +9,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeResponseModelDataPOST {
+public class EmployeeResponseModelGETData {
 
-
-    String name;
-    String salary;
-    String age;
-    String id;
+    int id;
+    String employee_name;
+    int employee_salary;
+    int employee_age;
+    String profile_image;
 
 
 }
-
