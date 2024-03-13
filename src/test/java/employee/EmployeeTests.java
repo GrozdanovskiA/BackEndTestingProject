@@ -18,17 +18,14 @@ public class EmployeeTests {
 
     @Test
     public void postEmployeeRequestDefaultValues(){
-        //kreirame request body i zadavame vrednosti na atributite
+
         EmployeeRequestModelPOSTPUT requestBody = new EmployeeDataFactory(createBodyForEmployeesPOSTPUT())
                 .createRequest();
 
-        //go kreirame request body-to so POST request
         Response postResponse = new EmployeeClient()
                 .postEmployee(requestBody);
-        //go zacuvuvame request body-to kako klasen tip (Response --> EmployeeResponse)
-        // za da mozime da gi pristapime atributite na modelite
+
         EmployeeResponseModelPOSTPUT employeesResponse = postResponse.body().as(EmployeeResponseModelPOSTPUT.class);
-        //pravime sporedbi na vrednostite
         assertEquals(200, postResponse.statusCode());
         assertEquals("success", employeesResponse.getStatus());
         assertEquals("Default name", employeesResponse.getData().getName());
